@@ -6,10 +6,22 @@ export interface IPostRepository {
   findAll(
     page: number,
     limit: number,
-    sortBy: string,
-    order: "asc" | "desc",
+    sortBy?: string,
+    order?: "asc" | "desc",
     filter?: string
   ): Promise<PostDTO[]>; // Get all posts
-  findByAuthorId(authorId: string): Promise<PostDTO[]>; // Find posts by author ID
-  findByTagId(tagId: string): Promise<PostDTO[]>; // Find posts by tag ID
+  findByAuthorSlug(
+    page: number,
+    limit: number,
+    authorId: string,
+    sortBy?: string,
+    order?: "asc" | "desc",
+  ): Promise<PostDTO[]>; // Find posts by author slug
+  findByTagSlug(
+    page: number,
+    limit: number,
+    tagId: string,
+    sortBy?: string,
+    order?: "asc" | "desc",
+  ): Promise<PostDTO[]>; // Find posts by tag slug
 }

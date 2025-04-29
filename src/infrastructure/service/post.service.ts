@@ -4,7 +4,7 @@ import { IPostRepository } from "@/application/repository/post.repository.interf
 import { PostDTO } from "@/domain/dtos/post.dto";
 
 export class PostService implements IPostService {
-  private readonly repository: IPostRepository;
+  private readonly repository: PostRepository;
 
   constructor() {
     this.repository = new PostRepository();
@@ -21,18 +21,36 @@ export class PostService implements IPostService {
   async findAll(
     page: number,
     limit: number,
-    sortBy: string,
-    order: "asc" | "desc",
+    sortBy?: string,
+    order?: "asc" | "desc",
     filter?: string
   ): Promise<PostDTO[]> {
     return this.repository.findAll(page, limit, sortBy, order, filter);
   }
 
-  async findByAuthorId(authorId: string): Promise<PostDTO[]> {
-    return this.repository.findByAuthorId(authorId);
+  async findByAuthorSlug(
+    page: number,
+    limit: number,
+    authorSlug: string,
+    sortBy?: string,
+    order?: "asc" | "desc",
+  ): Promise<PostDTO[]> {
+    return this.repository.findByAuthorSlug(
+      page,
+      limit,
+      authorSlug,
+      sortBy,
+      order,
+    );
   }
 
-  async findByTagId(tagId: string): Promise<PostDTO[]> {
-    return this.repository.findByTagId(tagId);
+  async findByTagSlug(
+    page: number,
+    limit: number,
+    tagSlug: string,
+    sortBy?: string,
+    order?: "asc" | "desc",
+  ): Promise<PostDTO[]> {
+    return this.repository.findByTagSlug(page, limit, tagSlug, sortBy, order);
   }
 }
