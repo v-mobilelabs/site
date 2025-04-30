@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from "axios";
+import { IZohoPeopleRepository } from "@/application/repository/zoho-people.repository.interface";
 
-export class ZohoPeopleRepository {
-  private readonly axiosClient: AxiosInstance;
+export class ZohoPeopleRepository implements IZohoPeopleRepository {
+  private readonly client: AxiosInstance;
 
   constructor() {
     if (
@@ -13,7 +14,7 @@ export class ZohoPeopleRepository {
       );
     }
 
-    this.axiosClient = axios.create({
+    this.client = axios.create({
       baseURL: process.env.ZOHO_PEOPLE_API_ENDPOINT,
       headers: {
         Authorization: `Zoho-oauthtoken ${process.env.ZOHO_PEOPLE_API_AUTH_TOKEN}`,
@@ -24,15 +25,12 @@ export class ZohoPeopleRepository {
 
   async getEmployees(sIndex: number = 1, recLimit: number = 25): Promise<any> {
     try {
-      const response = await this.axiosClient.get(
-        "/forms/P_EmployeeView/records",
-        {
-          params: {
-            sIndex,
-            rec_limit: recLimit,
-          },
-        }
-      );
+      const response = await this.client.get("/forms/P_EmployeeView/records", {
+        params: {
+          sIndex,
+          rec_limit: recLimit,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -43,7 +41,7 @@ export class ZohoPeopleRepository {
 
   async getDepartments(): Promise<any> {
     try {
-      const response = await this.axiosClient.get("/settings/departments");
+      const response = await this.client.get("/settings/departments");
       return response.data;
     } catch (error) {
       console.error("Error fetching departments:", error);
