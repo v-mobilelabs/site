@@ -18,9 +18,7 @@ export default async function PostPage({
 
   return (
     <div className="min-h-screen p-6 sm:p-12 font-[family-name:var(--font-geist-sans)] bg-white text-black">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-6">{post.title}</h1>
-
+      <div className="max-w-2xl mx-auto">
         {post.featureImage && (
           <Image
             src={post.featureImage}
@@ -31,13 +29,15 @@ export default async function PostPage({
           />
         )}
 
+        <h1 className="text-3xl sm:text-4xl font-bold mb-6">{post.title}</h1>
+
         <article
           className="prose prose-lg max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content || "" }}
         />
 
         <p className="mt-10 text-sm text-gray-500">
-          Author ID: {post.authorId}
+          Authors: {post.authors?.join(", ")}
         </p>
       </div>
     </div>

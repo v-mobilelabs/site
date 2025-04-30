@@ -1,4 +1,4 @@
-import { PostDTO } from "@/domain/dtos/post.dto";
+import { PaginatedPostsDTO } from "@/domain/dtos/post.dto";
 import { PostService } from "@/infrastructure/service/post.service";
 
 export class FindPostsByTagUseCase {
@@ -10,7 +10,7 @@ export class FindPostsByTagUseCase {
     tagSlug: string,
     page: number,
     limit: number
-  ): Promise<PostDTO[]> {
+  ): Promise<PaginatedPostsDTO> {
     // Validate the input
     if (!tagSlug) {
       throw new Error("Tag slug is required");

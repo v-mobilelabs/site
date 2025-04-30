@@ -1,7 +1,6 @@
 import { IPostService } from "@/application/service/post.service.interface";
 import { PostRepository } from "../repository/post.repository";
-import { IPostRepository } from "@/application/repository/post.repository.interface";
-import { PostDTO } from "@/domain/dtos/post.dto";
+import { PaginatedPostsDTO, PostDTO } from "@/domain/dtos/post.dto";
 
 export class PostService implements IPostService {
   private readonly repository: PostRepository;
@@ -24,7 +23,7 @@ export class PostService implements IPostService {
     sortBy?: string,
     order?: "asc" | "desc",
     filter?: string
-  ): Promise<PostDTO[]> {
+  ): Promise<PaginatedPostsDTO> {
     return this.repository.findAll(page, limit, sortBy, order, filter);
   }
 
@@ -34,7 +33,7 @@ export class PostService implements IPostService {
     authorSlug: string,
     sortBy?: string,
     order?: "asc" | "desc",
-  ): Promise<PostDTO[]> {
+  ): Promise<PaginatedPostsDTO> {
     return this.repository.findByAuthorSlug(
       page,
       limit,
@@ -50,7 +49,7 @@ export class PostService implements IPostService {
     tagSlug: string,
     sortBy?: string,
     order?: "asc" | "desc",
-  ): Promise<PostDTO[]> {
+  ): Promise<PaginatedPostsDTO> {
     return this.repository.findByTagSlug(page, limit, tagSlug, sortBy, order);
   }
 }

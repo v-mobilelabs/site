@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { FindAllPostsUseCase } from "@/application/use-case/find-all-post";
-import { PostDTO } from "@/domain/dtos/post.dto";
+import { PaginatedPostsDTO } from "@/domain/dtos/post.dto";
 
 export const revalidate = 3600;
 
@@ -18,8 +18,8 @@ export default async function UsersPage({ searchParams }: Props) {
   const limit = 9;
 
   const useCase = new FindAllPostsUseCase();
-  const posts: PostDTO[] = await useCase.execute(pageNo, limit);
-  if (!posts.length) {
+  const posts: PaginatedPostsDTO = await useCase.execute(pageNo, limit);
+  if (!posts.posts.length) {
     redirect("/posts");
   }
 
@@ -30,7 +30,7 @@ export default async function UsersPage({ searchParams }: Props) {
       </h1>
 
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
+        {posts.posts.map((post) => (
           <Link
             key={post.id}
             href={`/posts/${post.slug}`}
@@ -52,7 +52,7 @@ export default async function UsersPage({ searchParams }: Props) {
             <div className="p-4 flex flex-col flex-grow">
               <h2 className="text-lg font-semibold mb-2">{post.title}</h2>
               <p className="text-sm text-gray-600 mt-auto">
-                Author: {post.authorId}
+                Authors: {post.authors?.join(", ")}
               </p>
             </div>
           </Link>
@@ -68,7 +68,7 @@ export default async function UsersPage({ searchParams }: Props) {
             ← Previous
           </Link>
         )}
-        {posts.length === limit && (
+        {pageNo < posts.pages && (
           <Link
             href={`?page=${pageNo + 1}`}
             className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"

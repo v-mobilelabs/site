@@ -1,4 +1,4 @@
-import { PostDTO } from "@/domain/dtos/post.dto";
+import { PostDTO, PaginatedPostsDTO } from "@/domain/dtos/post.dto";
 
 export interface IPostService {
   findById(id: string): Promise<PostDTO | null>; // Find a post by its ID
@@ -9,19 +9,19 @@ export interface IPostService {
     sortBy?: string,
     order?: "asc" | "desc",
     filter?: string
-  ): Promise<PostDTO[]>; // Get all posts
+  ): Promise<PaginatedPostsDTO>; // Get all posts
   findByAuthorSlug(
     page: number,
     limit: number,
-    authorId: string,
+    authorSlug: string,
     sortBy?: string,
     order?: "asc" | "desc",
-  ): Promise<PostDTO[]>; // Find posts by author slug
+  ): Promise<PaginatedPostsDTO>; // Find posts by author slug
   findByTagSlug(
     page: number,
     limit: number,
-    tagId: string,
+    tagSlug: string,
     sortBy?: string,
     order?: "asc" | "desc",
-  ): Promise<PostDTO[]>; // Find posts by tag slug
+  ): Promise<PaginatedPostsDTO>; // Find posts by tag slug
 }

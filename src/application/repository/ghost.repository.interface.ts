@@ -1,15 +1,12 @@
-import { PostOrPage } from "@tryghost/content-api";
+import { PostOrPage, PostsOrPages } from "@tryghost/content-api";
 
-export interface GhostRepository {
-  findBySlug(slug: string): Promise<PostOrPage | null>;
-  findByTag(slug: string): Promise<PostOrPage[]>;
-  findByAuthor(authorId: string): Promise<PostOrPage[]>;
-  getFeatured(): Promise<PostOrPage[]>;
-  getAllPosts(
+export interface IGhostRepository {
+  browsePosts(
     page: number,
     limit: number,
     sortBy: string,
     order: "asc" | "desc",
     filter?: string
-  ): Promise<PostOrPage[]>;
+  ): Promise<PostsOrPages>;
+  readPosts(slug?: string, id?: string): Promise<PostOrPage>;
 }

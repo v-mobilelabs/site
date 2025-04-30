@@ -8,8 +8,16 @@ export interface PostDTO {
   publishedAt?: Date; // Date and time when the post was published
   updatedAt?: Date; // Date and time when the post was last updated
   createdAt?: Date;
-  authorId: string; // Author of the post
+  authors?: string[]; // Authors of the post
   tags?: string[]; // Tags associated with the post
   metaTitle?: string; // Meta title for SEO
   metaDescription?: string; // Meta description for SEO
+}
+
+export interface PaginatedPostsDTO {
+  page: number; // Current page number
+  limit: number; // Number of posts per page
+  pages: number; // Total number of pages
+  total: number; // Total number of posts
+  posts: PostDTO[]; // Array of posts for the current page
 }
