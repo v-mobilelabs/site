@@ -1,34 +1,11 @@
-import { HubspotRepository } from "../repository/hubspot.repository";
-import {
-  ContactFormData,
-  Lead,
-} from "@/application/repository/hubspot.repository.interface";
+import { ContactInputDTO } from "../dtos/contact.dto";
+import { LeadInputDTO } from "../dtos/lead.dto";
 
-export class HubspotService {
-  private readonly repository: HubspotRepository;
+export class SanitizedLead {
+  private constructor() {}
 
-  constructor() {
-    this.repository = new HubspotRepository();
-  }
-
-  async getAllContacts(limit: number): Promise<any> {
-    return this.repository.getAllContacts(limit);
-  }
-
-  async getContactById(id: string): Promise<any> {
-    return this.repository.getContactById(id);
-  }
-
-  async submitLeadForm(
-    contactData: ContactFormData,
-    token: string
-  ): Promise<string> {
-    const lead = this.sanitizeLeadSubmission(contactData, token);
-    return this.repository.submitLeadForm(lead);
-  }
-
-  private sanitizeLeadSubmission(contact: ContactFormData, token: string) {
-    const lead: Lead = {
+  static create(contact: ContactInputDTO, token: string): LeadInputDTO {
+    const lead: LeadInputDTO = {
       context: {
         hutk: token,
         pageName: "Contact",

@@ -1,7 +1,5 @@
-import {
-  IHubspotRepository,
-  Lead,
-} from "@/application/repository/hubspot.repository.interface";
+import { IHubspotRepository } from "@/application/repository/hubspot.repository.interface";
+import { LeadInputDTO } from "@/domain/dtos/lead.dto";
 import { Client } from "@hubspot/api-client";
 import axios, { AxiosInstance } from "axios";
 
@@ -34,27 +32,7 @@ export class HubspotRepository implements IHubspotRepository {
     });
   }
 
-  async getAllContacts(limit: number): Promise<any> {
-    try {
-      const response = await this.client.crm.contacts.basicApi.getPage(limit);
-      return response.results;
-    } catch (error) {
-      console.error("Error fetching contacts:", error);
-      throw error;
-    }
-  }
-
-  async getContactById(id: string): Promise<any> {
-    try {
-      const response = await this.client.crm.contacts.basicApi.getById(id);
-      return response;
-    } catch (error) {
-      console.error("Error fetching contact by ID:", error);
-      throw error;
-    }
-  }
-
-  async submitLeadForm(lead: Lead): Promise<string> {
+  async submit(lead: LeadInputDTO): Promise<string> {
     try {
       const response = await this.formSubmissionClient.post(
         `/${this.leadFormId}`,

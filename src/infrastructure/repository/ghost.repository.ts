@@ -1,4 +1,5 @@
 import { IGhostRepository } from "@/application/repository/ghost.repository.interface";
+import { Tag } from "@/domain/entities/tag.model";
 import GhostContentAPI, {
   GhostAPI,
   PostsOrPages,
@@ -75,7 +76,7 @@ export class GhostRepository implements IGhostRepository {
     return response;
   }
 
-  async readTags(slug?: string, id?: string): Promise<Author> {
+  async readTag(slug?: string, id?: string): Promise<Tag> {
     if (!slug && !id) {
       throw new Error("Either slug or id must be provided");
     }
