@@ -32,14 +32,14 @@ export class PostService implements IPostService {
     limit: number,
     authorSlug: string,
     sortBy?: string,
-    order?: "asc" | "desc",
+    order?: "asc" | "desc"
   ): Promise<PaginatedPostsDTO> {
     return this.repository.findByAuthorSlug(
       page,
       limit,
       authorSlug,
       sortBy,
-      order,
+      order
     );
   }
 
@@ -48,8 +48,17 @@ export class PostService implements IPostService {
     limit: number,
     tagSlug: string,
     sortBy?: string,
-    order?: "asc" | "desc",
+    order?: "asc" | "desc"
   ): Promise<PaginatedPostsDTO> {
     return this.repository.findByTagSlug(page, limit, tagSlug, sortBy, order);
+  }
+
+  async getFeaturedPosts(
+    page: number,
+    limit: number,
+    sortBy?: string,
+    order?: "asc" | "desc"
+  ): Promise<PaginatedPostsDTO> {
+    return this.repository.getFeaturedPosts(page, limit, sortBy, order);
   }
 }

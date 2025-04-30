@@ -33,37 +33,30 @@ export class GhostRepository implements IGhostRepository {
     order: "asc" | "desc" = "desc",
     filter?: string
   ): Promise<PostsOrPages> {
-    try {
-      const response = await this.client.posts.browse({
-        page,
-        limit,
-        include: ["authors", "tags"],
-        filter: filter || undefined,
-        order: `${sortBy} ${order}`,
-      });
+    const response = await this.client.posts.browse({
+      page,
+      limit,
+      include: ["authors", "tags"],
+      filter: filter || undefined,
+      order: `${sortBy} ${order}`,
+    });
 
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    return response;
   }
 
   async readPosts(slug?: string, id?: string): Promise<PostOrPage> {
-    try {
-      if (!slug && !id) {
-        throw new Error("Either slug or id must be provided");
-      }
-      const data = id
-        ? { id: id as string | null }
-        : { slug: slug as string | null };
-
-      const response = await this.client.posts.read(data, {
-        include: ["authors", "tags"],
-      });
-      return response;
-    } catch (error) {
-      throw error;
+    if (!slug && !id) {
+      throw new Error("Either slug or id must be provided");
     }
+    const data = id
+      ? { id: id as string | null }
+      : { slug: slug as string | null };
+
+    const response = await this.client.posts.read(data, {
+      include: ["authors", "tags"],
+    });
+
+    return response;
   }
 
   async browseTags(
@@ -72,36 +65,29 @@ export class GhostRepository implements IGhostRepository {
     sortBy: string = "slug",
     order: "asc" | "desc" = "asc"
   ): Promise<Authors> {
-    try {
-      const response = await this.client.authors.browse({
-        page,
-        limit,
-        include: "count.posts",
-        order: `${sortBy} ${order}`,
-      });
+    const response = await this.client.authors.browse({
+      page,
+      limit,
+      include: "count.posts",
+      order: `${sortBy} ${order}`,
+    });
 
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    return response;
   }
 
   async readTags(slug?: string, id?: string): Promise<Author> {
-    try {
-      if (!slug && !id) {
-        throw new Error("Either slug or id must be provided");
-      }
-      const data = id
-        ? { id: id as string | null }
-        : { slug: slug as string | null };
-
-      const response = await this.client.authors.read(data, {
-        include: "count.posts",
-      });
-      return response;
-    } catch (error) {
-      throw error;
+    if (!slug && !id) {
+      throw new Error("Either slug or id must be provided");
     }
+    const data = id
+      ? { id: id as string | null }
+      : { slug: slug as string | null };
+
+    const response = await this.client.authors.read(data, {
+      include: "count.posts",
+    });
+
+    return response;
   }
 
   async browseAuthors(
@@ -110,35 +96,28 @@ export class GhostRepository implements IGhostRepository {
     sortBy: string = "slug",
     order: "asc" | "desc" = "asc"
   ): Promise<Authors> {
-    try {
-      const response = await this.client.authors.browse({
-        page,
-        limit,
-        include: "count.posts",
-        order: `${sortBy} ${order}`,
-      });
+    const response = await this.client.authors.browse({
+      page,
+      limit,
+      include: "count.posts",
+      order: `${sortBy} ${order}`,
+    });
 
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    return response;
   }
 
   async readAuthors(slug?: string, id?: string): Promise<Author> {
-    try {
-      if (!slug && !id) {
-        throw new Error("Either slug or id must be provided");
-      }
-      const data = id
-        ? { id: id as string | null }
-        : { slug: slug as string | null };
-
-      const response = await this.client.authors.read(data, {
-        include: "count.posts",
-      });
-      return response;
-    } catch (error) {
-      throw error;
+    if (!slug && !id) {
+      throw new Error("Either slug or id must be provided");
     }
+    const data = id
+      ? { id: id as string | null }
+      : { slug: slug as string | null };
+
+    const response = await this.client.authors.read(data, {
+      include: "count.posts",
+    });
+
+    return response;
   }
 }

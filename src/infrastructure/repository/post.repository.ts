@@ -90,6 +90,15 @@ export class PostRepository implements IPostRepository {
     return await this.findAll(page, limit, sortBy, order, `tag:${tagSlug}`);
   }
 
+  async getFeaturedPosts(
+    page: number,
+    limit: number,
+    sortBy?: string,
+    order?: "asc" | "desc"
+  ): Promise<PaginatedPostsDTO> {
+    return await this.findAll(page, limit, sortBy, order, "featured:true");
+  }
+
   private formatPost = (post: PostOrPage): PostDTO => ({
     id: post.id,
     title: post.title || "",
