@@ -1,11 +1,12 @@
 import { IGhostRepository } from "@/application/repository/ghost.repository.interface";
-import { Tag } from "@/domain/entities/tag.model";
 import GhostContentAPI, {
   GhostAPI,
   PostsOrPages,
   PostOrPage,
   Author,
   Authors,
+  Tags,
+  Tag,
 } from "@tryghost/content-api";
 
 export class GhostRepository implements IGhostRepository {
@@ -65,8 +66,8 @@ export class GhostRepository implements IGhostRepository {
     limit: number,
     sortBy: string = "slug",
     order: "asc" | "desc" = "asc"
-  ): Promise<Authors> {
-    const response = await this.client.authors.browse({
+  ): Promise<Tags> {
+    const response = await this.client.tags.browse({
       page,
       limit,
       include: "count.posts",
@@ -76,7 +77,7 @@ export class GhostRepository implements IGhostRepository {
     return response;
   }
 
-  async readTag(slug?: string, id?: string): Promise<Tag> {
+  async readTags(slug?: string, id?: string): Promise<Tag> {
     if (!slug && !id) {
       throw new Error("Either slug or id must be provided");
     }
@@ -84,7 +85,7 @@ export class GhostRepository implements IGhostRepository {
       ? { id: id as string | null }
       : { slug: slug as string | null };
 
-    const response = await this.client.authors.read(data, {
+    const response = await this.client.tags.read(data, {
       include: "count.posts",
     });
 

@@ -111,6 +111,7 @@ export class PostRepository implements IPostRepository {
     createdAt: post.created_at ? new Date(post.created_at) : undefined,
     authors: post.authors?.map((author: Author) => author.slug) || [],
     tags: post.tags?.map((tag: Tag) => tag.slug) || [],
+    readTime: post.reading_time || 0,
     metaTitle: post.meta_title || "",
     metaDescription: post.meta_description || "",
   });

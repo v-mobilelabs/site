@@ -10,6 +10,7 @@ export interface PostDTO {
   createdAt?: Date;
   authors?: string[]; // Authors of the post
   tags?: string[]; // Tags associated with the post
+  readTime?: number; // Estimated reading time in minutes
   metaTitle?: string; // Meta title for SEO
   metaDescription?: string; // Meta description for SEO
 }

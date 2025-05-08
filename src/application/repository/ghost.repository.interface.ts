@@ -22,12 +22,12 @@ export interface IGhostRepository {
     sortBy: string,
     order: "asc" | "desc"
   ): Promise<Tags>;
-  readTag(slug?: string, id?: string): Promise<Tag>;
+  readTags(slug?: string, id?: string): Promise<Tag>;
   browseAuthors(
     page: number,
     limit: number,
     sortBy: string,
     order: "asc" | "desc"
   ): Promise<Authors>;
-  readAuthor(slug?: string, id?: string): Promise<Author>;
+  readAuthors(slug?: string, id?: string): Promise<Author>;
 }
